@@ -1,0 +1,94 @@
+import random, time, os
+
+def rollDice (sides):
+  roll = random.randint(1, sides)
+  return roll
+
+def health():
+  healthStat = ((rollDice(6) * rollDice(12)) / 2) + 10
+  return healthStat
+
+def strength ():
+  strengthStat = ((rollDice(6) * rollDice(8)) / 2) + 12
+  return strengthStat
+
+
+print()
+print ("BATTLE TIME ⚔️")
+print()
+C1Name = input("Name your legend:\n ")
+C1Type = input("Character type (Human, Elf, Wizard, Orc):\n ")
+print()
+print(C1Name)
+C1Health = health()
+C1Strength = strength()
+print ("HEALTH: ", C1Health)
+print ("STRENGTH: ", C1Strength)
+print()
+print("Who are they battling? ")
+print()
+C2Name = input("Name your legend:\n ")
+C2Type = input("Character type (Human, Elf, Wizard, Orc):\n ")
+print()
+print(C2Name)
+C2Health = health()
+C2Strength = strength()
+print ("HEALTH: ", C2Health)
+print ("STRENGTH: ", C2Strength)
+print()
+
+round = 1
+winner = None
+
+while True:
+  time.sleep(1)
+  os.system("clear")
+  print ("BATTLE TIME ⚔️")
+  print()
+  print ("BATTLE BEGINS!")
+
+  C1Dice = rollDice(6)
+  C2Dice = rollDice(6)  
+
+  difference = abs(C1Strength - C2Strength) + 1
+
+  if C1Dice > C2Dice:
+    C2Health -= difference 
+    if round == 1:
+      print (C1Name, "wins the first blow")
+    else:
+      print (C1Name, "wins round", round)
+  elif C2Dice > C1Dice:
+    C1Health -= difference 
+    if round == 1:
+      print (C2Name, "wins the first blow")
+    else:
+      print (C2Name, "wins round", round)
+  else:
+    print ("Their swords clash in drawn blood", round)
+
+  print()
+  print (C1Name)
+  print ("HEALTH: ", C1Health)
+  print()
+  print (C2Name)
+  print ("HEALTH: ", C2Health)
+  print()
+
+  if C1Health <= 0:
+    print (C1Name, "has died!")
+    winner = C2Name
+    break
+  elif C2Health <= 0:
+    print (C2Name, "has died!")
+    winner = C1Name
+    break
+  else:
+    print ("And they're both standing for the next round!")
+    round += 1
+
+time.sleep (1)
+os.system("clear")
+print ("BATTLE TIME ⚔️")
+print()
+print (winner, "has won in", round, "rounds")
